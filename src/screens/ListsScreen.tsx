@@ -21,7 +21,13 @@ export default function ListsScreen(props: Props) {
 
 	function _renderItem({ item }: { item: any }) {
 		return (
-			<ListCard title={item.title} todos={item.todos} />
+			<ListCard
+				onPress={() => props.navigation.navigate('Tasks', {
+					item
+				})}
+				title={item.title}
+				todos={item.todos}
+			/>
 		);
 	}
 
