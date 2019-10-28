@@ -1,14 +1,29 @@
-import React from 'react';
-import { View, Text, StatusBar } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, Text, StatusBar, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { ListCard } from '../components';
+import Carousel from 'react-native-snap-carousel';
+
+import data from '../data';
+
+const windowWidth = Dimensions.get('window').width;
 
 export default function ListsScreen() {
+
+	const _carousel = useRef(null);
+
+	const [entries, setEntries] = useState(data);
+
+	function _renderItem({ item }: { item: any }) {
+		return (
+			<ListCard title={item.title} todos={item.todos} />
+		);
+	}
 
 	return (
 		<>
 			<StatusBar backgroundColor="white" />
-			<View style={{ alignItems: 'center', height: '100%', justifyContent: 'center' }}>
+			<View style={{ alignItems: 'center', height: '100%', justifyContent: 'center', paddingTop: 100 }}>
 				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 					<View style={{ borderBottomWidth: 2, borderBottomColor: '#EDECEF', width: 80 }} />
 					<Text style={{ fontSize: 28, fontWeight: 'bold' }}>Tasks<Text style={{ fontWeight: 'normal', color: '#BFBFC1' }}> Lists</Text></Text>
@@ -21,9 +36,16 @@ export default function ListsScreen() {
 					</View>
 					<Text style={{ color: '#C2C2C5' }}>Add List</Text>
 				</View>
-				<View style={{ paddingLeft: 20 }}>
+				<Carousel
+					ref={_carousel}
+					data={entries}
+					renderItem={_renderItem}
+					sliderWidth={windowWidth}
+					itemWidth={150}
+				/>
+				{/* <View style={{ paddingLeft: 20 }}>
 					<ListCard />
-				</View>
+				</View> */}
 			</View>
 		</>
 	)

@@ -1,6 +1,6 @@
 let data = [
 	{
-		task: 'Trip to Paris',
+		title: 'Trip to Paris',
 		todos: [
 			{ task: 'Book flights', done: true },
 			{ task: 'Passport check', done: true },
@@ -9,7 +9,7 @@ let data = [
 		]
 	},
 	{
-		task: 'My Tasks',
+		title: 'My Tasks',
 		todos: [
 			{ task: 'Buy milk', done: false },
 			{ task: 'Plan weekend', done: false },

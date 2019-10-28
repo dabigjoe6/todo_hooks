@@ -5,6 +5,6 @@ import { ListsScreen, TasksScreen } from './src/screens';
 
 export default function App() {
 	return (
-		<TasksScreen />
+		<ListsScreen />
 	)
 }
