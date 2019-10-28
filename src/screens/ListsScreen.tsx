@@ -11,7 +11,7 @@ export default function ListsScreen() {
 			<View style={{ alignItems: 'center', height: '100%', justifyContent: 'center' }}>
 				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 					<View style={{ borderBottomWidth: 2, borderBottomColor: '#EDECEF', width: 80 }} />
-					<Text style={{ fontSize: 28, fontWeight: 'bold' }}>Tasks<Text style={{ fontWeight: 'normal', color: '#BFBFC1' }}> List</Text></Text>
+					<Text style={{ fontSize: 28, fontWeight: 'bold' }}>Tasks<Text style={{ fontWeight: 'normal', color: '#BFBFC1' }}> Lists</Text></Text>
 					<View style={{ borderBottomWidth: 2, borderBottomColor: '#EDECEF', width: 80 }} />
 				</View>
 
@@ -25,8 +25,6 @@ export default function ListsScreen() {
 					<ListCard />
 				</View>
 			</View>
-
-
 		</>
 	)
 }
