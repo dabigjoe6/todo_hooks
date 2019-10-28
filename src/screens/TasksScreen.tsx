@@ -2,14 +2,25 @@ import React from 'react';
 import { View, Text, StatusBar, TouchableWithoutFeedback } from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { Circle } from 'react-native-progress';
 
+interface Props {
+	navigation: any
+}
 
-export default function TasksScreen() {
+export default function TasksScreen(props: Props) {
 	return (
 		<>
 			<StatusBar backgroundColor="white" />
-			<View style={{ alignItems: 'center', height: '100%', paddingTop: 100 }}>
+			<View style={{ alignItems: 'center', height: '100%', paddingTop: 50 }}>
+				<View style={{ flexDirection: 'row', width: '100%', justifyContent: 'flex-end', paddingRight: 30, marginBottom: 50 }}>
+					<TouchableWithoutFeedback onPress={() => props.navigation.goBack()}>
+						<View>
+							<EntypoIcon name="cross" size={40} />
+						</View>
+					</TouchableWithoutFeedback>
+				</View>
 				<View style={{ width: '100%', flexDirection: 'row', marginBottom: 15, alignItems: 'center' }}>
 					<View style={{ flex: 1, alignItems: 'center' }}>
 						{/* PROGRESS BAR CIRCLE */}

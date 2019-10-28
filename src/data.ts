@@ -1,4 +1,4 @@
-let data = [
+let data: any = [
 	{
 		title: 'Trip to Paris',
 		todos: [
