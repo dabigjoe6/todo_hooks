@@ -11,15 +11,26 @@ interface Props {
 
 export default function TasksScreen(props: Props) {
 
-	const [todo, setTodo]: any = useState({});
+	const [todo, setTodo]: any = useState({
+		title: '',
+		todos: [
+			{ task: '', done: false }
+		]
+	});
+
 	const [noOfCompletedTasks, setNoOfCompletedTasks]: any = useState(0);
 	const [noOfTasks, setNoOfTasks]: any = useState(0);
 
 	useEffect(() => {
-		setTodo(props.navigation.getParam('item'));
+		let item = props.navigation.getParam('item');
 
-		setNoOfTasks(todo.todos.length);
-		setNoOfCompletedTasks(todo.todos.filter((item: any) => item.done === true).length);
+		if (item) {
+			setTodo(item)
+
+			setNoOfTasks(todo.todos.length);
+			setNoOfCompletedTasks(todo.todos.filter((item: any) => item.done === true).length);
+		}
+
 	});
 
 	return (
