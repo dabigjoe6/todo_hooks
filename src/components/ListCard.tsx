@@ -6,7 +6,7 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 interface Props {
 	title: string,
 	todos: [],
-	onPress: any
+	onPress: any,
 }
 
 export default function ListCard(props: Props) {

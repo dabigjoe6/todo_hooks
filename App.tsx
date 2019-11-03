@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-
+import { Container } from './src/components';
 import { ListsScreen, TasksScreen } from './src/screens';
 
 const RootNavigator = createStackNavigator({
@@ -14,4 +13,12 @@ const RootNavigator = createStackNavigator({
 	})
 
 
-export default createAppContainer(RootNavigator);
+const Root = createAppContainer(RootNavigator);
+
+export default function App() {
+	return (
+		<Container>
+			<Root />
+		</Container>
+	)
+}

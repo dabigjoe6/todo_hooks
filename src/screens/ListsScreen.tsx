@@ -1,10 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import { View, Text, StatusBar, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { ListCard } from '../components';
 import Carousel from 'react-native-snap-carousel';
-
-import data from '../data';
+import { ContainerContext } from '../components/Container';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -14,17 +13,22 @@ interface Props {
 
 export default function ListsScreen(props: Props) {
 
-	const _carousel = useRef(null);
+	//@ts-ignore
+	const lists = useContext(ContainerContext).data;
 
-	const [entries, setEntries] = useState(data);
+	const _carousel = useRef(null);
 
 	function navigateToTasksScreen() {
 		props.navigation.navigate('Tasks');
 	}
 
+	useEffect(() => {
+		console.log(lists);
+	}, [])
 	function _renderItem({ item }: { item: any }) {
 		return (
 			<ListCard
+				key={item.id}
 				onPress={() => props.navigation.navigate('Tasks', {
 					item
 				})}
@@ -54,8 +58,9 @@ export default function ListsScreen(props: Props) {
 				</TouchableWithoutFeedback>
 
 				<Carousel
+					keyExtractor={item => item.id}
 					ref={_carousel}
-					data={entries}
+					data={lists}
 					renderItem={_renderItem}
 					sliderWidth={windowWidth}
 					itemWidth={150}

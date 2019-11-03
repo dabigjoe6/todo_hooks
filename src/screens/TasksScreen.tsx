@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StatusBar, TouchableWithoutFeedback } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Text, StatusBar, TouchableWithoutFeedback, TextInput } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { Circle } from 'react-native-progress';
 import { TaskItem } from '../components';
+import { ContainerContext } from '../components/Container';
+import createGUID from '../utilities/createGUID';
+import { any } from 'prop-types';
 
 interface Props {
 	navigation: any
 }
 
 export default function TasksScreen(props: Props) {
+
+	//@ts-ignore
+	let addList = useContext(ContainerContext).addList;
+	//@ts-ignore
+	let lists = useContext(ContainerContext).data
 
 	const [todo, setTodo]: any = useState({
 		title: '',
@@ -21,6 +29,8 @@ export default function TasksScreen(props: Props) {
 	const [noOfCompletedTasks, setNoOfCompletedTasks]: any = useState(0);
 	const [noOfTasks, setNoOfTasks]: any = useState(0);
 
+	const [listTitle, setListTitle] = useState('');
+
 	useEffect(() => {
 		let item = props.navigation.getParam('item');
 
@@ -29,9 +39,53 @@ export default function TasksScreen(props: Props) {
 
 			setNoOfTasks(todo.todos.length);
 			setNoOfCompletedTasks(todo.todos.filter((item: any) => item.done === true).length);
+
+			setListTitle(todo.title)
 		}
 
-	});
+	}, []);
+
+	function renderListTitle() {
+		let autoFocus;
+
+		if (todo.title) {
+			autoFocus = false;
+		} else {
+			autoFocus = true;
+		}
+
+		return (
+			<TextInput
+				autoFocus={autoFocus}
+				defaultValue="List Title"
+				disableFullscreenUI
+				enablesReturnKeyAutomatically
+				onBlur={() => {
+					//save the text into data
+				}}
+				onChangeText={(input) => setListTitle(input)}
+				onSubmitEditing={() => {
+
+					console.log("Called again");
+					//create a new list
+					let list = {
+						id: createGUID(),
+						title: listTitle,
+						todos: []
+					}
+
+					addList(list);
+
+					console.log("UPDATE", lists);
+				}}
+				placeholder={"Enter a List title"}
+				selectTextOnFocus
+				underlineColorAndroid="transparent"
+				value={listTitle}
+				style={{ fontSize: 28, fontWeight: 'bold' }}
+			/>
+		)
+	}
 
 	return (
 		<>
@@ -49,7 +103,7 @@ export default function TasksScreen(props: Props) {
 						<Circle size={18} progress={0.5} />
 					</View>
 					<View style={{ flex: 3, borderBottomWidth: 2, borderBottomColor: '#F0F0F0', paddingBottom: 15, }}>
-						<Text style={{ fontSize: 28, fontWeight: 'bold' }}>{todo.title}</Text>
+						{renderListTitle()}
 						<Text style={{ color: '#BFBFC1' }}>{`${noOfCompletedTasks} of ${noOfTasks}`}</Text>
 					</View>
 				</View>
